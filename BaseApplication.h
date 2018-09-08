@@ -28,6 +28,9 @@ http://www.ogre3d.org/wiki/
 #include <OgreConfigFile.h>
 
 #include <OgreColourValue.h>
+#include <OgreMeshManager.h>
+#include <OgreNode.h>
+#include <OgreManualObject.h>
 
 #include <OgreWindowEventUtilities.h>
 #include <OgreFrameListener.h>

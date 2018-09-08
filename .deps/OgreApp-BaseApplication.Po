@@ -868,7 +868,9 @@ OgreApp-BaseApplication.o: BaseApplication.cpp /usr/include/stdc-predef.h \
  /usr/include/OGRE/OgreLodStrategy.h /usr/include/OGRE/OgreWorkQueue.h \
  /usr/include/OGRE/OgreViewport.h /usr/include/OGRE/OgreSceneManager.h \
  /usr/include/OGRE/OgreRenderWindow.h /usr/include/OGRE/OgreConfigFile.h \
- /usr/include/OGRE/OgreColourValue.h \
+ /usr/include/OGRE/OgreColourValue.h /usr/include/OGRE/OgreMeshManager.h \
+ /usr/include/OGRE/OgrePatchMesh.h /usr/include/OGRE/OgrePatchSurface.h \
+ /usr/include/OGRE/OgreNode.h /usr/include/OGRE/OgreManualObject.h \
  /usr/include/OGRE/OgreWindowEventUtilities.h \
  /usr/include/OGRE/OgreFrameListener.h \
  /usr/include/OGRE/Overlay/OgreOverlaySystem.h \
@@ -2914,6 +2916,16 @@ BaseApplication.h:
 /usr/include/OGRE/OgreConfigFile.h:
 
 /usr/include/OGRE/OgreColourValue.h:
+
+/usr/include/OGRE/OgreMeshManager.h:
+
+/usr/include/OGRE/OgrePatchMesh.h:
+
+/usr/include/OGRE/OgrePatchSurface.h:
+
+/usr/include/OGRE/OgreNode.h:
+
+/usr/include/OGRE/OgreManualObject.h:
 
 /usr/include/OGRE/OgreWindowEventUtilities.h:
 
