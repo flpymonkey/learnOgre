@@ -130,6 +130,18 @@ void TutorialApplication::createScene(void)
     man2->end();
     mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(man2);
 
+    mBallEntity = mSceneMgr->createEntity("mySphere", Ogre::SceneManager::PT_SPHERE);
+    mBallEntity->setMaterialName("grass.material");
+
+    mBallNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+    mBallNode->setPosition(-10, -10, -10);
+    mBallNode->roll(Ogre::Degree(-90));
+    mBallNode->scale(0.1,0.1,0.1);
+    mBallNode->attachObject(mBallEntity);
+
+    mPointList.push_back(Ogre::Vector3(-40, -40, -40));
+    mPointList.push_back(Ogre::Vector3(40, 40, 40));
+
     // Ogre::ManualObject* man3 = mSceneMgr->createManualObject("test3");
     // man3->begin("Examples/OgreLogo", Ogre::RenderOperation::OT_TRIANGLE_LIST);
 

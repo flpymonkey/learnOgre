@@ -94,6 +94,7 @@ protected:
     virtual void createResourceListener(void);
     virtual void loadResources(void);
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+    virtual bool nextLocation(void);
 
     virtual bool keyPressed(const OIS::KeyEvent &arg);
     virtual bool keyReleased(const OIS::KeyEvent &arg);
@@ -105,6 +106,22 @@ protected:
     virtual void windowResized(Ogre::RenderWindow* rw);
     // Unattach OIS before window shutdown (very important under Linux)
     virtual void windowClosed(Ogre::RenderWindow* rw);
+
+    //////////////////////
+    // Tutorial Section //
+    //////////////////////
+
+    // Ball variables 
+    std::deque<Ogre::Vector3> mPointList;
+
+    Ogre::Real mDistance;
+    Ogre::Real mMoveSpd;
+    Ogre::Vector3 mDirection;
+    Ogre::Vector3 mDestination;
+    Ogre::Entity* mBallEntity;
+    Ogre::SceneNode* mBallNode;
+    // End of Ball variables 
+
 
     Ogre::Root*                 mRoot;
     Ogre::Camera*               mCamera;

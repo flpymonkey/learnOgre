@@ -36,7 +36,17 @@ BaseApplication::BaseApplication(void)
     mInputManager(0),
     mMouse(0),
     mKeyboard(0),
-    mOverlaySystem(0)
+    mOverlaySystem(0),
+
+    // Ball init
+    mDistance(0),
+    mMoveSpd(70.0), 
+    mDirection(Ogre::Vector3::ZERO),
+    mDestination(Ogre::Vector3::ZERO),
+    mBallEntity(0),
+    mBallNode(0)
+    // End of Ball init
+
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources/";
@@ -239,6 +249,17 @@ bool BaseApplication::setup(void)
 
     return true;
 };
+
+// Helper method for next location
+bool BaseApplication::nextLocation(void){
+    if (mPointList.empty())
+        return false;
+    mDestination = mPointList.front();
+    mPointList.pop_front();
+    mDirection = mDestination - mBallNode->getPosition();
+    mDistance = mDirection.normalise();
+}
+
 //---------------------------------------------------------------------------
 bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
@@ -251,6 +272,29 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     // Need to capture/update each device
     mKeyboard->capture();
     mMouse->capture();
+
+    printf("%d\n",mBallNode->getPosition());
+
+    // Move the ball each frame
+    if (mDirection == Ogre::Vector3::ZERO) 
+    {
+      // if (nextLocation())
+      // {
+      //   mAnimationState = mEntity->getAnimationState("Walk");
+      //   mAnimationState->setLoop(true);
+      //   mAnimationState->setEnabled(true);
+      // }
+    } else {
+        Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
+        mDistance -= move;
+        if (mDistance <= 0)
+        {
+            mBallNode->setPosition(mDestination);
+            mDirection = Ogre::Vector3::ZERO;        
+        } else {
+            mBallNode->translate(move * mDirection);
+        }
+    }
 
     return true;
 }
