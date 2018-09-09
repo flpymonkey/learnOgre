@@ -139,8 +139,14 @@ void TutorialApplication::createScene(void)
     mBallNode->scale(0.1,0.1,0.1);
     mBallNode->attachObject(mBallEntity);
 
+    // Add points to the ball vector
+
     mPointList.push_back(Ogre::Vector3(-40, -40, -40));
     mPointList.push_back(Ogre::Vector3(40, 40, 40));
+    mPointList.push_back(Ogre::Vector3(-40, 40, 40));
+    mPointList.push_back(Ogre::Vector3(40, -40, -40));
+    mPointList.push_back(Ogre::Vector3(-40, 40, -40));
+    mPointList.push_back(Ogre::Vector3(40, 40, -40));
 
     // Ogre::ManualObject* man3 = mSceneMgr->createManualObject("test3");
     // man3->begin("Examples/OgreLogo", Ogre::RenderOperation::OT_TRIANGLE_LIST);

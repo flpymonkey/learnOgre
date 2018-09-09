@@ -258,6 +258,7 @@ bool BaseApplication::nextLocation(void){
     mPointList.pop_front();
     mDirection = mDestination - mBallNode->getPosition();
     mDistance = mDirection.normalise();
+    return true;
 }
 
 //---------------------------------------------------------------------------
@@ -278,19 +279,20 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     // Move the ball each frame
     if (mDirection == Ogre::Vector3::ZERO) 
     {
-      // if (nextLocation())
-      // {
-      //   mAnimationState = mEntity->getAnimationState("Walk");
-      //   mAnimationState->setLoop(true);
-      //   mAnimationState->setEnabled(true);
-      // }
+      if (nextLocation())
+      {
+        // mAnimationState = mEntity->getAnimationState("Walk");
+        // mAnimationState->setLoop(true);
+        // mAnimationState->setEnabled(true);
+      }
     } else {
         Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
         mDistance -= move;
         if (mDistance <= 0)
         {
             mBallNode->setPosition(mDestination);
-            mDirection = Ogre::Vector3::ZERO;        
+            mDirection = Ogre::Vector3::ZERO;
+            nextLocation();        
         } else {
             mBallNode->translate(move * mDirection);
         }
