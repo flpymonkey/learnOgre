@@ -275,8 +275,6 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     mKeyboard->capture();
     mMouse->capture();
 
-    printf("%d\n",mBallNode->getPosition());
-
     // Move the ball each frame
     if (mDirection == Ogre::Vector3::ZERO) 
     {
