@@ -27,6 +27,7 @@ http://www.ogre3d.org/wiki/
 BaseApplication::BaseApplication(void)
     : mRoot(0),
     mCamera(0),
+    camNode(0),
     mSceneMgr(0),
     mWindow(0),
     mResourcesCfg(Ogre::StringUtil::BLANK),
@@ -297,6 +298,8 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
             mBallNode->translate(move * mDirection);
         }
     }
+
+    camNode->lookAt(mBallNode->getPosition(), Ogre::Node::TS_WORLD);
 
     return true;
 }

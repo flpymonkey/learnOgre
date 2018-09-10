@@ -35,11 +35,10 @@ void TutorialApplication::createScene(void)
     Ogre::Light* light = mSceneMgr->createLight("MainLight");
 
 
-    Ogre::SceneNode* camNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+    camNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
     
     camNode->attachObject(mCamera);
-    // camNode->setPosition(200, 300, 400);
-    // camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TransformSpace::TS_WORLD);
+    camNode->setPosition(50, 50, 50);
 
     // Ogre::SceneNode* ogreNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
     // Ogre::Entity* ogreEntity = mSceneMgr->createEntity("ogrehead.mesh");
@@ -171,6 +170,22 @@ void TutorialApplication::createScene(void)
 
     // man3->end();
     // mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(man3);
+
+    // Currently not showing up??
+    Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
+    Ogre::MeshManager::getSingleton().createPlane(
+        "ground1",
+        Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+        plane,
+        1500, 1500, 1, 1,
+        true,
+        1, 5, 5,
+        Ogre::Vector3::UNIT_Z);
+
+    Ogre::Entity* groundEntity = mSceneMgr->createEntity("ground1");
+    mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
+    groundEntity->setMaterialName("Examples/Rockwall");
+
 }
 
 //---------------------------------------------------------------------------
