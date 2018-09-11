@@ -94,7 +94,9 @@ protected:
     virtual void createResourceListener(void);
     virtual void loadResources(void);
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+    // Added methods
     virtual bool nextLocation(void);
+    virtual Ogre::Vector3 GetReflectionVector(Ogre::Vector3 incident, Ogre::Plane collision);
 
     virtual bool keyPressed(const OIS::KeyEvent &arg);
     virtual bool keyReleased(const OIS::KeyEvent &arg);

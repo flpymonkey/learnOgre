@@ -133,19 +133,22 @@ void TutorialApplication::createScene(void)
     mBallEntity->setMaterialName("grass.material");
 
     mBallNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    mBallNode->setPosition(-10, -10, -10);
+    mBallNode->setPosition(20, 20, 20);
     mBallNode->roll(Ogre::Degree(-90));
     mBallNode->scale(0.1,0.1,0.1);
     mBallNode->attachObject(mBallEntity);
 
     // Add points to the ball vector
-
+    // TODO: Remove for final version
     mPointList.push_back(Ogre::Vector3(-40, -40, -40));
     mPointList.push_back(Ogre::Vector3(40, 40, 40));
     mPointList.push_back(Ogre::Vector3(-40, 40, 40));
     mPointList.push_back(Ogre::Vector3(40, -40, -40));
     mPointList.push_back(Ogre::Vector3(-40, 40, -40));
     mPointList.push_back(Ogre::Vector3(40, 40, -40));
+
+    // mDestination = Ogre::Vector3(-20, -20, -20);
+    // mDirection = mDestination - mBallNode->getPosition();
 
     // Add walls
     //Bottom

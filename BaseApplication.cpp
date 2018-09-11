@@ -258,7 +258,7 @@ bool BaseApplication::setup(void)
     return true;
 };
 
-// Helper method for next location
+// Helper method for next location in queue 
 bool BaseApplication::nextLocation(void){
     if (mPointList.empty())
         return false;
@@ -267,6 +267,16 @@ bool BaseApplication::nextLocation(void){
     mDirection = mDestination - mBallNode->getPosition();
     mDistance = mDirection.normalise();
     return true;
+}
+
+// Calculates a reflection vector from an incident ray colliding with a plane.
+// Based on formula on slide 20 found here: 
+// http://www.cs.utexas.edu/users/theshark/courses/cs354r/lectures/cs354r-5.pdf
+Ogre::Vector3 BaseApplication::GetReflectionVector(Ogre::Vector3 incident, Ogre::Plane collision){
+    Ogre::Vector3 normal = collision.normal;
+
+    Ogre::Vector3 reflection = incident - 2 * (normal.dotProduct(incident)) * normal;
+    return reflection;
 }
 
 //---------------------------------------------------------------------------
@@ -283,6 +293,11 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     mMouse->capture();
 
     // Move the ball each frame
+/*    Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
+    mBallNode->translate(move * mDirection);*/
+
+    // Uses predefined locations in a queue
+    // TODO: Remove varables related to this in final version
     if (mDirection == Ogre::Vector3::ZERO) 
     {
       if (nextLocation())
