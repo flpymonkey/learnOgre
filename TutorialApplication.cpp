@@ -81,53 +81,53 @@ void TutorialApplication::createScene(void)
     spotLightNode->attachObject(pointLight);
     spotLightNode->setPosition(Ogre::Vector3(-20, 0, 0));
 
-    Ogre::ManualObject* man = mSceneMgr->createManualObject("test");
-    man->begin("Examples/OgreLogo", Ogre::RenderOperation::OT_TRIANGLE_LIST);
+    // Ogre::ManualObject* man = mSceneMgr->createManualObject("test");
+    // man->begin("Examples/OgreLogo", Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
-    man->position(-40, 40, -40);
-    man->normal(0, 0, 1);
-    man->textureCoord(0, 0);
+    // man->position(-40, 40, -40);
+    // man->normal(0, 0, 1);
+    // man->textureCoord(0, 0);
 
-    man->position(-40, -40, -40);
-    man->normal(0, 0, 1);
-    man->textureCoord(0, 1);
+    // man->position(-40, -40, -40);
+    // man->normal(0, 0, 1);
+    // man->textureCoord(0, 1);
 
-    man->position(40, -40, -40);
-    man->normal(0, 0, 1);
-    man->textureCoord(1, 1);
+    // man->position(40, -40, -40);
+    // man->normal(0, 0, 1);
+    // man->textureCoord(1, 1);
 
-    man->position(40, 40, -40);
-    man->normal(0, 0, 1);
-    man->textureCoord(1, 0);
+    // man->position(40, 40, -40);
+    // man->normal(0, 0, 1);
+    // man->textureCoord(1, 0);
 
-    man->quad(0, 1, 2, 3);
+    // man->quad(0, 1, 2, 3);
 
-    man->end();
-    mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(man);
+    // man->end();
+    // mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(man);
 
-    Ogre::ManualObject* man2 = mSceneMgr->createManualObject("test2");
-    man2->begin("Examples/OgreLogo", Ogre::RenderOperation::OT_TRIANGLE_LIST);
+    // Ogre::ManualObject* man2 = mSceneMgr->createManualObject("test2");
+    // man2->begin("Examples/OgreLogo", Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
-    man2->position(-40, -40, -40);
-    man2->normal(0, 1, 0);
-    man2->textureCoord(0, 0);
+    // man2->position(-40, -40, -40);
+    // man2->normal(0, 1, 0);
+    // man2->textureCoord(0, 0);
 
-    man2->position(-40, -40, 40);
-    man2->normal(0, 1, 0);
-    man2->textureCoord(0, 1);
+    // man2->position(-40, -40, 40);
+    // man2->normal(0, 1, 0);
+    // man2->textureCoord(0, 1);
 
-    man2->position(40, -40, 40);
-    man2->normal(0, 1, 0);
-    man2->textureCoord(1, 1);
+    // man2->position(40, -40, 40);
+    // man2->normal(0, 1, 0);
+    // man2->textureCoord(1, 1);
 
-    man2->position(40, -40, -40);
-    man2->normal(0, 1, 0);
-    man2->textureCoord(1, 0);
+    // man2->position(40, -40, -40);
+    // man2->normal(0, 1, 0);
+    // man2->textureCoord(1, 0);
 
-    man2->quad(0, 1, 2, 3);
+    // man2->quad(0, 1, 2, 3);
 
-    man2->end();
-    mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(man2);
+    // man2->end();
+    // mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(man2);
 
     mBallEntity = mSceneMgr->createEntity("mySphere", Ogre::SceneManager::PT_SPHERE);
     mBallEntity->setMaterialName("grass.material");
@@ -147,30 +147,7 @@ void TutorialApplication::createScene(void)
     mPointList.push_back(Ogre::Vector3(-40, 40, -40));
     mPointList.push_back(Ogre::Vector3(40, 40, -40));
 
-    // Ogre::ManualObject* man3 = mSceneMgr->createManualObject("test3");
-    // man3->begin("Examples/OgreLogo", Ogre::RenderOperation::OT_TRIANGLE_LIST);
-
-    // man3->position(-40, 40, -40);
-    // man3->normal(-1, 0, 1);
-    // man3->textureCoord(0, 0);
-
-    // man3->position(-40, 40, 40);
-    // man3->normal(-1, 0, 1);
-    // man3->textureCoord(0, 1);
-
-    // man3->position(40, 40, 40);
-    // man3->normal(-1, 1, 0);
-    // man3->textureCoord(1, 1);
-
-    // man3->position(40, 40, -40);
-    // man3->normal(-1, 0, 1);
-    // man3->textureCoord(1, 0);
-
-    // man3->quad(0, 1, 2, 3);
-
-    // man3->end();
-    // mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(man3);
-
+    // Add walls
     //Bottom
     Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -40);
     Ogre::MeshManager::getSingleton().createPlane(
@@ -232,19 +209,19 @@ void TutorialApplication::createScene(void)
     groundEntity4->setMaterialName("Examples/Rockwall");
 
     // //Right --not working!!!!
-    // Ogre::Plane plane5(Ogre::Vector3::UNIT_X.reflect(Ogre::Vector3::UNIT_X), -40);
-    // Ogre::MeshManager::getSingleton().createPlane(
-    //     "ground5",
-    //     Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-    //     plane5,
-    //     150, 150, 1, 1,
-    //     true,
-    //     1, 5, 5,
-    //     Ogre::Vector3::UNIT_Y);
+    Ogre::Plane plane5(Ogre::Vector3::UNIT_X.reflect(Ogre::Vector3::UNIT_X), -40);
+    Ogre::MeshManager::getSingleton().createPlane(
+        "ground5",
+        Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+        plane5,
+        150, 150, 1, 1,
+        true,
+        1, 5, 5,
+        Ogre::Vector3::UNIT_Y);
 
-    // Ogre::Entity* groundEntity5 = mSceneMgr->createEntity("ground4");
-    // mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity5);
-    // groundEntity5->setMaterialName("Examples/Rockwall");
+    Ogre::Entity* groundEntity5 = mSceneMgr->createEntity("ground5");
+    mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity5);
+    groundEntity5->setMaterialName("Examples/Rockwall");
 
 }
 

@@ -45,8 +45,15 @@ BaseApplication::BaseApplication(void)
     mDirection(Ogre::Vector3::ZERO),
     mDestination(Ogre::Vector3::ZERO),
     mBallEntity(0),
-    mBallNode(0)
+    mBallNode(0),
     // End of Ball init
+
+    // Mouse init
+    mRotSpd(0.01),
+    mLMouseDown(false),
+    mRMouseDown(false),
+    mCurObject(0)
+    // ENd of mouse init
 
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
@@ -297,7 +304,8 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         }
     }
 
-    camNode->lookAt(mBallNode->getPosition(), Ogre::Node::TS_WORLD);
+    // This line will make the camera follow th ball
+    // camNode->lookAt(mBallNode->getPosition(), Ogre::Node::TS_WORLD);
 
     return true;
 }
@@ -318,16 +326,43 @@ bool BaseApplication::keyReleased(const OIS::KeyEvent &arg)
 //---------------------------------------------------------------------------
 bool BaseApplication::mouseMoved(const OIS::MouseEvent &arg)
 {
+    if (mLMouseDown)
+    {
+        // Do nothing right now
+    }
+    else if (mRMouseDown)
+    {
+      mCamera->yaw(Ogre::Degree(-arg.state.X.rel * mRotSpd));
+      mCamera->pitch(Ogre::Degree(-arg.state.Y.rel * mRotSpd));
+    }
     return true;
 }
 //---------------------------------------------------------------------------
 bool BaseApplication::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
+    if (id == OIS::MB_Left)
+    {
+      mLMouseDown = true;
+    }
+    else if (id == OIS::MB_Right)
+    {
+      mRMouseDown = true;
+      // CEGUI::MouseCursor::getSingleton().hide(); // TODO: USE CEGUI
+    }
     return true;
 }
 //---------------------------------------------------------------------------
 bool BaseApplication::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
+    if (id == OIS::MB_Left)
+    {
+      mLMouseDown = false;
+    }
+    else if (id == OIS::MB_Right)
+    {
+      mRMouseDown = false;
+      // CEGUI::MouseCursor::getSingleton().show(); // TODO: USE CEGUI
+    }
     return true;
 }
 //---------------------------------------------------------------------------

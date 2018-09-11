@@ -120,7 +120,13 @@ protected:
     Ogre::Vector3 mDestination;
     Ogre::Entity* mBallEntity;
     Ogre::SceneNode* mBallNode;
-    // End of Ball variables 
+    // End of Ball variables
+
+    // Mouse variables
+    float mRotSpd;
+    bool mLMouseDown, mRMouseDown;
+    Ogre::SceneNode* mCurObject;
+    // End of mouse variables 
 
 
     Ogre::Root*                 mRoot;
