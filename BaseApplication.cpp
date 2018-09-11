@@ -41,7 +41,7 @@ BaseApplication::BaseApplication(void)
 
     // Ball init
     mDistance(0),
-    mMoveSpd(70.0), 
+    mMoveSpd(rand() % 12 - 8), 
     mDirection(Ogre::Vector3::ZERO),
     mDestination(Ogre::Vector3::ZERO),
     mBallEntity(0),
@@ -293,31 +293,61 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     mMouse->capture();
 
     // Move the ball each frame
-/*    Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
-    mBallNode->translate(move * mDirection);*/
+    Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
+    mBallNode->translate(move * mDirection);
+
+    if (mBallNode->getPosition().y <= -40){
+        Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -40);
+        mDirection = GetReflectionVector(mDirection, plane);
+    }
+
+    if (mBallNode->getPosition().y >= 40){
+        Ogre::Plane plane(Ogre::Vector3::UNIT_Y.reflect(Ogre::Vector3::UNIT_Y), -40);
+        mDirection = GetReflectionVector(mDirection, plane);
+    }
+
+    if (mBallNode->getPosition().x <= -40){
+        Ogre::Plane plane(Ogre::Vector3::UNIT_X, -40);
+        mDirection = GetReflectionVector(mDirection, plane);
+    }
+
+    if (mBallNode->getPosition().x >= 40){
+        Ogre::Plane plane(Ogre::Vector3::UNIT_X.reflect(Ogre::Vector3::UNIT_X), -40);
+        mDirection = GetReflectionVector(mDirection, plane);
+    }
+
+    if (mBallNode->getPosition().z <= -40){
+        Ogre::Plane plane(Ogre::Vector3::UNIT_Z, -40);
+        mDirection = GetReflectionVector(mDirection, plane);
+    }
+
+    if (mBallNode->getPosition().z >= 40){
+        Ogre::Plane plane(Ogre::Vector3::UNIT_Z.reflect(Ogre::Vector3::UNIT_Z), -40);
+        mDirection = GetReflectionVector(mDirection, plane);
+    } 
 
     // Uses predefined locations in a queue
     // TODO: Remove varables related to this in final version
-    if (mDirection == Ogre::Vector3::ZERO) 
-    {
-      if (nextLocation())
-      {
-        // mAnimationState = mEntity->getAnimationState("Walk");
-        // mAnimationState->setLoop(true);
-        // mAnimationState->setEnabled(true);
-      }
-    } else {
-        Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
-        mDistance -= move;
-        if (mDistance <= 0)
-        {
-            mBallNode->setPosition(mDestination);
-            mDirection = Ogre::Vector3::ZERO;
-            nextLocation();        
-        } else {
-            mBallNode->translate(move * mDirection);
-        }
-    }
+    // if (mDirection == Ogre::Vector3::ZERO) 
+    // {
+    //   if (nextLocation())
+    //   {
+    //     // mAnimationState = mEntity->getAnimationState("Walk");
+    //     // mAnimationState->setLoop(true);
+    //     // mAnimationState->setEnabled(true);
+    //   }
+    // } else {
+    //     Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
+    //     mDistance -= move;
+    //     if (mDistance <= 0)
+    //     {
+    //         mBallNode->setPosition(mDestination);
+    //         mDirection = Ogre::Vector3::ZERO;
+    //         nextLocation();        
+    //     } else {
+    //         mBallNode->translate(move * mDirection);
+    //     }
+    // }
 
     // This line will make the camera follow th ball
     // camNode->lookAt(mBallNode->getPosition(), Ogre::Node::TS_WORLD);

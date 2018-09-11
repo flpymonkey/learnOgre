@@ -140,15 +140,16 @@ void TutorialApplication::createScene(void)
 
     // Add points to the ball vector
     // TODO: Remove for final version
-    mPointList.push_back(Ogre::Vector3(-40, -40, -40));
-    mPointList.push_back(Ogre::Vector3(40, 40, 40));
-    mPointList.push_back(Ogre::Vector3(-40, 40, 40));
-    mPointList.push_back(Ogre::Vector3(40, -40, -40));
-    mPointList.push_back(Ogre::Vector3(-40, 40, -40));
-    mPointList.push_back(Ogre::Vector3(40, 40, -40));
+    // mPointList.push_back(Ogre::Vector3(-40, -40, -40));
+    // mPointList.push_back(Ogre::Vector3(40, 40, 40));
+    // mPointList.push_back(Ogre::Vector3(-40, 40, 40));
+    // mPointList.push_back(Ogre::Vector3(40, -40, -40));
+    // mPointList.push_back(Ogre::Vector3(-40, 40, -40));
+    // mPointList.push_back(Ogre::Vector3(40, 40, -40));
 
-    // mDestination = Ogre::Vector3(-20, -20, -20);
-    // mDirection = mDestination - mBallNode->getPosition();
+    // Set ball destination at random location between -40 and 39 on each axis
+    mDestination = Ogre::Vector3(rand() % 80 - 40, rand() % 80 - 40, rand() % 80 - 40);
+    mDirection = mDestination - mBallNode->getPosition();
 
     // Add walls
     //Bottom
@@ -211,7 +212,7 @@ void TutorialApplication::createScene(void)
     mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity4);
     groundEntity4->setMaterialName("Examples/Rockwall");
 
-    // //Right --not working!!!!
+    //Right
     Ogre::Plane plane5(Ogre::Vector3::UNIT_X.reflect(Ogre::Vector3::UNIT_X), -40);
     Ogre::MeshManager::getSingleton().createPlane(
         "ground5",

@@ -18,6 +18,8 @@ http://www.ogre3d.org/wiki/
 #ifndef __BaseApplication_h_
 #define __BaseApplication_h_
 
+#include <stdlib.h>
+
 #include <OgreCamera.h>
 #include <OgreEntity.h>
 #include <OgreLogManager.h>
