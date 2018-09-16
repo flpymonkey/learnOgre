@@ -1,7 +1,6 @@
-OgreApp-BallApplication.o: BallApplication.cpp \
- /usr/include/stdc-predef.h BallApplication.h BaseApplication.h \
- /usr/include/stdlib.h /usr/include/features.h \
- /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+OgreApp-BallApplication.o: BallApplication.cpp /usr/include/stdc-predef.h \
+ BallApplication.h BaseApplication.h /usr/include/stdlib.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
@@ -901,7 +900,7 @@ OgreApp-BallApplication.o: BallApplication.cpp \
  /usr/include/ois/OISPrereqs.h /usr/include/ois/OISConfig.h \
  /usr/include/ois/OISInputManager.h /usr/include/ois/OISKeyboard.h \
  /usr/include/ois/OISObject.h /usr/include/ois/OISInterface.h \
- /usr/include/ois/OISEvents.h /usr/include/ois/OISMouse.h
+ /usr/include/ois/OISEvents.h /usr/include/ois/OISMouse.h Ball.h
 
 /usr/include/stdc-predef.h:
 
@@ -3012,3 +3011,5 @@ BaseApplication.h:
 /usr/include/ois/OISEvents.h:
 
 /usr/include/ois/OISMouse.h:
+
+Ball.h:

@@ -1,6 +1,6 @@
 /*
 -----------------------------------------------------------------------------
-Filename:    TutorialApplication.h
+Filename:    BallApplication.h
 -----------------------------------------------------------------------------
 
 This source file is part of the
@@ -15,25 +15,29 @@ http://www.ogre3d.org/wiki/
 -----------------------------------------------------------------------------
 */
 
-#ifndef __TutorialApplication_h_
-#define __TutorialApplication_h_
+#ifndef __BallApplication_h_
+#define __BallApplication_h_
 
 #include "BaseApplication.h"
 
 //---------------------------------------------------------------------------
 
-class TutorialApplication : public BaseApplication
+class BallApplication : public BaseApplication
 {
 public:
-    TutorialApplication(void);
-    virtual ~TutorialApplication(void);
+    BallApplication(void);
+    virtual ~BallApplication(void);
 
 protected:
     virtual void createScene(void);
+    // Added methods
+    virtual Ogre::Vector3 getReflectionVector(Ogre::Vector3 incident,
+    	 Ogre::Plane collision);
+    virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 };
 
 //---------------------------------------------------------------------------
 
-#endif // #ifndef __TutorialApplication_h_
+#endif // #ifndef __BallApplication_h_
 
 //---------------------------------------------------------------------------

@@ -39,15 +39,6 @@ BaseApplication::BaseApplication(void)
     mKeyboard(0),
     mOverlaySystem(0),
 
-    // Ball init
-    mDistance(0),
-    mMoveSpd(rand() % 12 - 8), 
-    mDirection(Ogre::Vector3::ZERO),
-    mDestination(Ogre::Vector3::ZERO),
-    mBallEntity(0),
-    mBallNode(0),
-    // End of Ball init
-
     // Mouse init
     mRotSpd(0.01),
     mLMouseDown(false),
@@ -83,7 +74,7 @@ bool BaseApplication::configure(void)
     {
         // If returned true, user clicked OK so initialise.
         // Here we choose to let the system create a default rendering window by passing 'true'.
-        mWindow = mRoot->initialise(true, "TutorialApplication Render Window");
+        mWindow = mRoot->initialise(true, "BallApplication Render Window");
 
         return true;
     }
@@ -258,102 +249,6 @@ bool BaseApplication::setup(void)
     return true;
 };
 
-// Helper method for next location in queue 
-bool BaseApplication::nextLocation(void){
-    if (mPointList.empty())
-        return false;
-    mDestination = mPointList.front();
-    mPointList.pop_front();
-    mDirection = mDestination - mBallNode->getPosition();
-    mDistance = mDirection.normalise();
-    return true;
-}
-
-// Calculates a reflection vector from an incident ray colliding with a plane.
-// Based on formula on slide 20 found here: 
-// http://www.cs.utexas.edu/users/theshark/courses/cs354r/lectures/cs354r-5.pdf
-Ogre::Vector3 BaseApplication::GetReflectionVector(Ogre::Vector3 incident, Ogre::Plane collision){
-    Ogre::Vector3 normal = collision.normal;
-
-    Ogre::Vector3 reflection = incident - 2 * (normal.dotProduct(incident)) * normal;
-    return reflection;
-}
-
-//---------------------------------------------------------------------------
-bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
-{
-    if(mWindow->isClosed())
-        return false;
-
-    if(mShutDown)
-        return false;
-
-    // Need to capture/update each device
-    mKeyboard->capture();
-    mMouse->capture();
-
-    // Move the ball each frame
-    Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
-    mBallNode->translate(move * mDirection);
-
-    if (mBallNode->getPosition().y <= -40){
-        Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -40);
-        mDirection = GetReflectionVector(mDirection, plane);
-    }
-
-    if (mBallNode->getPosition().y >= 40){
-        Ogre::Plane plane(Ogre::Vector3::UNIT_Y.reflect(Ogre::Vector3::UNIT_Y), -40);
-        mDirection = GetReflectionVector(mDirection, plane);
-    }
-
-    if (mBallNode->getPosition().x <= -40){
-        Ogre::Plane plane(Ogre::Vector3::UNIT_X, -40);
-        mDirection = GetReflectionVector(mDirection, plane);
-    }
-
-    if (mBallNode->getPosition().x >= 40){
-        Ogre::Plane plane(Ogre::Vector3::UNIT_X.reflect(Ogre::Vector3::UNIT_X), -40);
-        mDirection = GetReflectionVector(mDirection, plane);
-    }
-
-    if (mBallNode->getPosition().z <= -40){
-        Ogre::Plane plane(Ogre::Vector3::UNIT_Z, -40);
-        mDirection = GetReflectionVector(mDirection, plane);
-    }
-
-    if (mBallNode->getPosition().z >= 40){
-        Ogre::Plane plane(Ogre::Vector3::UNIT_Z.reflect(Ogre::Vector3::UNIT_Z), -40);
-        mDirection = GetReflectionVector(mDirection, plane);
-    } 
-
-    // Uses predefined locations in a queue
-    // TODO: Remove varables related to this in final version
-    // if (mDirection == Ogre::Vector3::ZERO) 
-    // {
-    //   if (nextLocation())
-    //   {
-    //     // mAnimationState = mEntity->getAnimationState("Walk");
-    //     // mAnimationState->setLoop(true);
-    //     // mAnimationState->setEnabled(true);
-    //   }
-    // } else {
-    //     Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
-    //     mDistance -= move;
-    //     if (mDistance <= 0)
-    //     {
-    //         mBallNode->setPosition(mDestination);
-    //         mDirection = Ogre::Vector3::ZERO;
-    //         nextLocation();        
-    //     } else {
-    //         mBallNode->translate(move * mDirection);
-    //     }
-    // }
-
-    // This line will make the camera follow th ball
-    // camNode->lookAt(mBallNode->getPosition(), Ogre::Node::TS_WORLD);
-
-    return true;
-}
 //---------------------------------------------------------------------------
 bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 {

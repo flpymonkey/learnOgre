@@ -95,10 +95,7 @@ protected:
     virtual void setupResources(void);
     virtual void createResourceListener(void);
     virtual void loadResources(void);
-    virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
-    // Added methods
-    virtual bool nextLocation(void);
-    virtual Ogre::Vector3 GetReflectionVector(Ogre::Vector3 incident, Ogre::Plane collision);
+    virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt) = 0; // Override me!;
 
     virtual bool keyPressed(const OIS::KeyEvent &arg);
     virtual bool keyReleased(const OIS::KeyEvent &arg);
@@ -111,27 +108,11 @@ protected:
     // Unattach OIS before window shutdown (very important under Linux)
     virtual void windowClosed(Ogre::RenderWindow* rw);
 
-    //////////////////////
-    // Tutorial Section //
-    //////////////////////
-
-    // Ball variables 
-    std::deque<Ogre::Vector3> mPointList;
-
-    Ogre::Real mDistance;
-    Ogre::Real mMoveSpd;
-    Ogre::Vector3 mDirection;
-    Ogre::Vector3 mDestination;
-    Ogre::Entity* mBallEntity;
-    Ogre::SceneNode* mBallNode;
-    // End of Ball variables
-
     // Mouse variables
     float mRotSpd;
     bool mLMouseDown, mRMouseDown;
     Ogre::SceneNode* mCurObject;
     // End of mouse variables 
-
 
     Ogre::Root*                 mRoot;
     Ogre::Camera*               mCamera;
