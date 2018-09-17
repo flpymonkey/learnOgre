@@ -19,6 +19,8 @@ http://www.ogre3d.org/wiki/
 #define __BallApplication_h_
 
 #include "BaseApplication.h"
+#include "Ball.h"
+#include <list>
 
 //---------------------------------------------------------------------------
 
@@ -34,6 +36,8 @@ protected:
     virtual Ogre::Vector3 getReflectionVector(Ogre::Vector3 incident,
     	 Ogre::Plane collision);
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+
+    std::list<Ball> balls;
 };
 
 //---------------------------------------------------------------------------

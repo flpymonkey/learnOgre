@@ -5,10 +5,10 @@ Filename:    BallApplication.cpp
 */
 
 #include "BallApplication.h"
-#include "Ball.h"
 
 //---------------------------------------------------------------------------
 BallApplication::BallApplication(void)
+: balls()
 {
 }
 //---------------------------------------------------------------------------
@@ -55,8 +55,27 @@ void BallApplication::createScene(void)
     Ogre::Vector3 initDir = initDest - Ogre::Vector3(20, 20, 20);
 
     // initalize a ball with a random speed
-    Ball(mSceneMgr, initPos, initDir, rand() % 12 - 8);
+    Ball b1 = Ball(mSceneMgr, "1", initPos, initDir, rand() % 12 - 10);
 
+    // Set ball destination at random location between -40 and 39 on each axis
+    Ogre::Vector3 initPos2 = Ogre::Vector3(20, 20, 20);
+    Ogre::Vector3 initDest2 = Ogre::Vector3(rand() % 80 - 40, rand() % 80 - 40, rand() % 80 - 40);
+    Ogre::Vector3 initDir2 = initDest2 - Ogre::Vector3(20, 20, 20);
+
+    // initalize a ball with a random speed
+    Ball b2 = Ball(mSceneMgr, "2", initPos2, initDir2, rand() % 12 - 10);
+
+    // Set ball destination at random location between -40 and 39 on each axis
+    Ogre::Vector3 initPos3 = Ogre::Vector3(20, 20, 20);
+    Ogre::Vector3 initDest3 = Ogre::Vector3(rand() % 80 - 40, rand() % 80 - 40, rand() % 80 - 40);
+    Ogre::Vector3 initDir3 = initDest3 - Ogre::Vector3(20, 20, 20);
+
+    // initalize a ball with a random speed
+    Ball b3 = Ball(mSceneMgr, "3", initPos3, initDir3, rand() % 12 - 10);
+
+    balls.push_back(b1);
+    balls.push_back(b2);
+    balls.push_back(b3);
     // mBallEntity = mSceneMgr->createEntity("mySphere", Ogre::SceneManager::PT_SPHERE);
     // mBallEntity->setMaterialName("grass.material");
 
@@ -155,43 +174,42 @@ bool BallApplication::frameRenderingQueued(const Ogre::FrameEvent& evt){
     mKeyboard->capture();
     mMouse->capture();
 
-    // Move the ball each frame
-    // Ogre::Real move = mMoveSpd * evt.timeSinceLastFrame;
-    // mBallNode->translate(move * mDirection);
+    // Move the balls each frame
+    std::list<Ball>::iterator it;
+    for (it = balls.begin(); it != balls.end(); ++it){
+        Ogre::Real move = it->getSpeed() * evt.timeSinceLastFrame;
+        it->translate(move * it->getDirection());
 
-    // if (mBallNode->getPosition().y <= -40){
-    //     Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -40);
-    //     mDirection = getReflectionVector(mDirection, plane);
-    // }
+        if (it->getPosition().y <= -40){
+            Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -40);
+            it->setDirection(getReflectionVector(it->getDirection(), plane));
+        }
 
-    // if (mBallNode->getPosition().y >= 40){
-    //     Ogre::Plane plane(Ogre::Vector3::UNIT_Y.reflect(Ogre::Vector3::UNIT_Y), -40);
-    //     mDirection = getReflectionVector(mDirection, plane);
-    // }
+        if (it->getPosition().y >= 40){
+            Ogre::Plane plane(Ogre::Vector3::UNIT_Y.reflect(Ogre::Vector3::UNIT_Y), -40);
+            it->setDirection(getReflectionVector(it->getDirection(), plane));
+        }
 
-    // if (mBallNode->getPosition().x <= -40){
-    //     Ogre::Plane plane(Ogre::Vector3::UNIT_X, -40);
-    //     mDirection = getReflectionVector(mDirection, plane);
-    // }
+        if (it->getPosition().x <= -40){
+            Ogre::Plane plane(Ogre::Vector3::UNIT_X, -40);
+            it->setDirection(getReflectionVector(it->getDirection(), plane));
+        }
 
-    // if (mBallNode->getPosition().x >= 40){
-    //     Ogre::Plane plane(Ogre::Vector3::UNIT_X.reflect(Ogre::Vector3::UNIT_X), -40);
-    //     mDirection = getReflectionVector(mDirection, plane);
-    // }
+        if (it->getPosition().x >= 40){
+            Ogre::Plane plane(Ogre::Vector3::UNIT_X.reflect(Ogre::Vector3::UNIT_X), -40);
+            it->setDirection(getReflectionVector(it->getDirection(), plane));
+        }
 
-    // if (mBallNode->getPosition().z <= -40){
-    //     Ogre::Plane plane(Ogre::Vector3::UNIT_Z, -40);
-    //     mDirection = getReflectionVector(mDirection, plane);
-    // }
+        if (it->getPosition().z <= -40){
+            Ogre::Plane plane(Ogre::Vector3::UNIT_Z, -40);
+            it->setDirection(getReflectionVector(it->getDirection(), plane));
+        }
 
-    // if (mBallNode->getPosition().z >= 40){
-    //     Ogre::Plane plane(Ogre::Vector3::UNIT_Z.reflect(Ogre::Vector3::UNIT_Z), -40);
-    //     mDirection = getReflectionVector(mDirection, plane);
-    // } 
-
-    // This line will make the camera follow th ball
-    // camNode->lookAt(mBallNode->getPosition(), Ogre::Node::TS_WORLD);
-
+        if (it->getPosition().z >= 40){
+            Ogre::Plane plane(Ogre::Vector3::UNIT_Z.reflect(Ogre::Vector3::UNIT_Z), -40);
+            it->setDirection(getReflectionVector(it->getDirection(), plane));
+        } 
+    }
     return true;
 }
 
