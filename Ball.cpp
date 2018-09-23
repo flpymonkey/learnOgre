@@ -40,6 +40,10 @@ Ogre::Vector3 Ball::getPosition(void){
 	return mBallNode->getPosition();
 }
 
+void Ball::setPosition(Ogre::Vector3 pos){
+	return mBallNode->setPosition(pos);
+}
+
 void Ball::translate(Ogre::Vector3 translation){
 	mBallNode->translate(translation);
 }

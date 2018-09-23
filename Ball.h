@@ -21,6 +21,7 @@ public:
     Ogre::Real getSpeed(void);
     Ogre::Vector3 getDirection(void);
     Ogre::Vector3 getPosition(void);
+    void setPosition(Ogre::Vector3 pos);
     void translate(Ogre::Vector3 translation);
     void setDirection(Ogre::Vector3 dir);
 

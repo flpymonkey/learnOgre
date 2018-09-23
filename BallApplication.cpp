@@ -50,28 +50,28 @@ void BallApplication::createScene(void)
     spotLightNode->setPosition(Ogre::Vector3(-20, 0, 0));
 
     // Set ball destination at random location between -40 and 39 on each axis
-    Ogre::Vector3 initPos = Ogre::Vector3(20, 20, 20);
+    Ogre::Vector3 initPos = Ogre::Vector3(rand() % 40 - 20, rand() % 40 - 20, rand() % 40 - 20);
     Ogre::Vector3 initDest = Ogre::Vector3(rand() % 80 - 40, rand() % 80 - 40, rand() % 80 - 40);
-    Ogre::Vector3 initDir = initDest - Ogre::Vector3(20, 20, 20);
+    Ogre::Vector3 initDir = initDest - Ogre::Vector3(rand() % 40 - 20, rand() % 40 - 20, rand() % 40 - 20);
 
     // initalize a ball with a random speed
-    Ball b1 = Ball(mSceneMgr, "1", initPos, initDir, rand() % 12 - 10);
+    Ball b1 = Ball(mSceneMgr, "1", initPos, initDir, rand() % 8 - 2);
 
     // Set ball destination at random location between -40 and 39 on each axis
-    Ogre::Vector3 initPos2 = Ogre::Vector3(20, 20, 20);
+    Ogre::Vector3 initPos2 = Ogre::Vector3(rand() % 40 - 20, rand() % 40 - 20, rand() % 40 - 20);
     Ogre::Vector3 initDest2 = Ogre::Vector3(rand() % 80 - 40, rand() % 80 - 40, rand() % 80 - 40);
-    Ogre::Vector3 initDir2 = initDest2 - Ogre::Vector3(20, 20, 20);
+    Ogre::Vector3 initDir2 = initDest2 - Ogre::Vector3(rand() % 40 - 20, rand() % 40 - 20, rand() % 40 - 20);
 
     // initalize a ball with a random speed
-    Ball b2 = Ball(mSceneMgr, "2", initPos2, initDir2, rand() % 12 - 10);
+    Ball b2 = Ball(mSceneMgr, "2", initPos2, initDir2, rand() % 8 - 2);
 
     // Set ball destination at random location between -40 and 39 on each axis
-    Ogre::Vector3 initPos3 = Ogre::Vector3(20, 20, 20);
+    Ogre::Vector3 initPos3 = Ogre::Vector3(rand() % 40 - 20, rand() % 40 - 20, rand() % 40 - 20);
     Ogre::Vector3 initDest3 = Ogre::Vector3(rand() % 80 - 40, rand() % 80 - 40, rand() % 80 - 40);
-    Ogre::Vector3 initDir3 = initDest3 - Ogre::Vector3(20, 20, 20);
+    Ogre::Vector3 initDir3 = initDest3 - Ogre::Vector3(rand() % 40 - 20, rand() % 40 - 20, rand() % 40 - 20);
 
     // initalize a ball with a random speed
-    Ball b3 = Ball(mSceneMgr, "3", initPos3, initDir3, rand() % 12 - 10);
+    Ball b3 = Ball(mSceneMgr, "3", initPos3, initDir3, rand() % 8 - 2);
 
     balls.push_back(b1);
     balls.push_back(b2);
@@ -180,34 +180,40 @@ bool BallApplication::frameRenderingQueued(const Ogre::FrameEvent& evt){
         Ogre::Real move = it->getSpeed() * evt.timeSinceLastFrame;
         it->translate(move * it->getDirection());
 
-        if (it->getPosition().y <= -40){
+        if (it->getPosition().y <= -36){
             Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -40);
             it->setDirection(getReflectionVector(it->getDirection(), plane));
+            it->setPosition(Ogre::Vector3(it->getPosition().x, -35, it->getPosition().z));
         }
 
-        if (it->getPosition().y >= 40){
+        if (it->getPosition().y >= 36){
             Ogre::Plane plane(Ogre::Vector3::UNIT_Y.reflect(Ogre::Vector3::UNIT_Y), -40);
             it->setDirection(getReflectionVector(it->getDirection(), plane));
+            it->setPosition(Ogre::Vector3(it->getPosition().x, 35, it->getPosition().z));
         }
 
-        if (it->getPosition().x <= -40){
+        if (it->getPosition().x <= -36){
             Ogre::Plane plane(Ogre::Vector3::UNIT_X, -40);
             it->setDirection(getReflectionVector(it->getDirection(), plane));
+            it->setPosition(Ogre::Vector3(-35, it->getPosition().y, it->getPosition().z));
         }
 
-        if (it->getPosition().x >= 40){
+        if (it->getPosition().x >= 36){
             Ogre::Plane plane(Ogre::Vector3::UNIT_X.reflect(Ogre::Vector3::UNIT_X), -40);
             it->setDirection(getReflectionVector(it->getDirection(), plane));
+            it->setPosition(Ogre::Vector3(35, it->getPosition().y, it->getPosition().z));
         }
 
-        if (it->getPosition().z <= -40){
+        if (it->getPosition().z <= -36){
             Ogre::Plane plane(Ogre::Vector3::UNIT_Z, -40);
             it->setDirection(getReflectionVector(it->getDirection(), plane));
+            it->setPosition(Ogre::Vector3(it->getPosition().x, it->getPosition().y, -35));
         }
 
-        if (it->getPosition().z >= 40){
+        if (it->getPosition().z >= 36){
             Ogre::Plane plane(Ogre::Vector3::UNIT_Z.reflect(Ogre::Vector3::UNIT_Z), -40);
             it->setDirection(getReflectionVector(it->getDirection(), plane));
+            it->setPosition(Ogre::Vector3(it->getPosition().x, it->getPosition().y, 35));
         } 
     }
     return true;
